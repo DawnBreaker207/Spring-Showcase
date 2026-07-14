@@ -6,6 +6,7 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
@@ -21,10 +22,8 @@ import java.time.Instant;
 @AllArgsConstructor
 @SuperBuilder
 @Data
-@EntityListeners(AuditingEntityListener.class)
-public class AbstractMappedEntity implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
+@EqualsAndHashCode(callSuper = true)
+public class AbstractMappedEntity extends BaseEntity{
 
     @CreatedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING)
