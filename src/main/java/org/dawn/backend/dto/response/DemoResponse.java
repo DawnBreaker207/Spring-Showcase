@@ -13,5 +13,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @EqualsAndHashCode(callSuper = true)
 public class DemoResponse extends BaseResponse{
+    private Long id;
     private String name;
 }

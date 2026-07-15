@@ -17,13 +17,31 @@ public class DemoController {
     private final DemoService  demoService;
 
 
-    public ResponseObject<ResponsePage<DemoResponse>> findAll(@RequestParam int page, @RequestParam int size){
+    @GetMapping
+    public ResponseObject<ResponsePage<DemoResponse>> findAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size){
         return ResponseObject.success(demoService.getAll(page, size));
     }
 
+    @GetMapping("/{id}")
+    public ResponseObject<DemoResponse> findById(@PathVariable Long id){
+        return ResponseObject.success(demoService.getById(id));
+    }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseObject<DemoResponse> create(@RequestBody @Valid DemoRequest req) {
-        return ResponseObject.success(demoService.create(req));
+        return ResponseObject.created(demoService.create(req));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseObject<DemoResponse> update(@PathVariable Long id, @RequestBody @Valid DemoRequest req) {
+        return ResponseObject.success(demoService.update(id, req));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseObject<Void> delete(@PathVariable Long id) {
+        demoService.delete(id);
+        return ResponseObject.deleted();
     }
 }
